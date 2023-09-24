@@ -29,11 +29,11 @@
         user-select: none;
       }
 
-      .lowers .ha, .uppers .ha{
+      .abc:not(.block) .ha{
         background: unset !important;
       }
       
-      .lowers .ha:hover, .uppers .ha:hover{
+      .abc:not(.block) .ha:hover{
         background: rgba(0,0,0,0.1) !important;
         transition: 0.2;
       }
@@ -107,8 +107,19 @@
         `
       }
 
+      function numericWrapper(color, i){
+        return `
+          <div data-i="${i}" class="ha" style="color: ${color}; background: ${color}" onclick="oopsNewColorPleaseThisOneFuckingSucks(this)">
+            <div class="haha">
+              ${i+1%10}
+            </div>
+          </div>
+        `
+      }
+
       function generate(){
         let markup = colors.map(wrapper).join('');
+        let numericMarkup = colors.slice(0, 10).map(numericWrapper).join('');
 
         container.innerHTML = `
           <div class="abc block">
@@ -121,6 +132,14 @@
 
           <div class="abc lowers">
             ${markup}
+          </div>
+
+          <div class="abc numeric"> 
+            ${numericMarkup}
+          </div>
+
+          <div class="abc numeric block"> 
+            ${numericMarkup}
           </div>
         `;
       }
